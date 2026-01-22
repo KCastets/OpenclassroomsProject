@@ -8,6 +8,7 @@ Dans ce ReadMe, il y aura les commandes suivies pas à pas pour :
 - Suivre le cycle de vie du développement du projet fictif.
     * Les bases
     * Les branches   
+- Récupérer un projet existant
 
 ## Initialisation de l'environnement de travail
 
@@ -182,7 +183,7 @@ $ git commit -m "Realisaion de la cagnotte"
 ~~~
 
 Notre branche cagnotte contient donc un commit différent du dernier commit réalisé sur la branche main.
-Nous allons devoir les mettre en commun.
+Nous allons devoir l'envoyer sur le repo GitHub : 
 
 ~~~ bash 
 $ git push -u origin cagnotte
@@ -200,3 +201,60 @@ To github.com:KCastets/OpenclassroomsProject.git
  * [new branch]      cagnotte -> cagnotte
 branch 'cagnotte' set up to track 'origin/cagnotte'.
 ~~~
+
+Puis mettre en commun les deux branches.
+Il faut se placer dans la branche qui va recevoir les modifications.
+
+~~~ bash
+$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+$ git branch
+  cagnotte
+* main
+
+$ git merge cagnotte
+Updating f162c27..c8c769d
+Fast-forward
+ ReadME.md    | 61 ++++++++++++++++++++++++++++++++++++++++
+ cagnotte.txt |  0
+ 2 files changed, 61 insertions(+)
+ create mode 100644 cagnotte.txt
+~~~
+
+## Récupérer un projet existant
+
+Pour récupérer un projet existant il faut réaliser un clone.
+Pour cela, il faut se positionner dans le terminal à la racine contenant nos projets.
+
+~~~ bash
+~$ cd Git
+~/Git$ git clone https://github.com/OpenClassrooms-Student-Center/7162856-G-rez-Git-et-GitHub.git
+
+Cloning into '7162856-G-rez-Git-et-GitHub'...
+remote: Enumerating objects: 25, done.
+remote: Counting objects: 100% (16/16), done.
+remote: Compressing objects: 100% (13/13), done.
+remote: Total 25 (delta 7), reused 3 (delta 3), pack-reused 9 (from 1)
+Receiving objects: 100% (25/25), done.
+Resolving deltas: 100% (8/8), done.
+
+~/Git$ cd  7162856-G-rez-Git-et-GitHub/
+~/Git/7162856-G-rez-Git-et-GitHub$ ls
+README.md  index.html  style.css
+~~~
+
+Dans le cas où on possède déjà, en local, un projet et que celui-ci a subit des modifications : 
+
+~~~ bash
+~/Git/7162856-G-rez-Git-et-GitHub$ git pull origin main
+From https://github.com/OpenClassrooms-Student-Center/7162856-G-rez-Git-et-GitHub
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+~~~
+
+## Création d'une Pull Request
+
+Lorsque l'on participe à des projets avec plusieurs développeur, il devient nécessaire de réaliser des merge de code plus coordonnées. Pour cela, lorsqu'on termine de développer notre feature, il convient de faire un pull request : Une demande de merge en 2 étapes, permettant de s'assurer que l'on écrase pas le code du voisin.
+
