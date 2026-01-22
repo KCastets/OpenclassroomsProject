@@ -258,3 +258,43 @@ Already up to date.
 
 Lorsque l'on participe à des projets avec plusieurs développeur, il devient nécessaire de réaliser des merge de code plus coordonnées. Pour cela, lorsqu'on termine de développer notre feature, il convient de faire un pull request : Une demande de merge en 2 étapes, permettant de s'assurer que l'on écrase pas le code du voisin.
 
+~~~ bash
+$ git branch update-color
+$ git checkout update-color
+M       ReadME.md
+M       index.html
+M       styles.css
+Switched to branch 'update-color'
+
+$ git add .
+$ git status
+On branch update-color
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   ReadME.md
+        modified:   index.html
+        modified:   styles.css
+
+$ git commit -m "A
+jout du titre h2 et son css"
+[update-color 9c21caa] Ajout du titre h2 et son css
+ 3 files changed, 65 insertions(+), 2 deletions(-)
+
+$ git push -u origin update-color
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 1.47 KiB | 302.00 KiB/s, done.
+Total 5 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+remote:
+remote: Create a pull request for 'update-color' on GitHub by visiting:
+remote:      https://github.com/KCastets/OpenclassroomsProject/pull/new/update-color
+remote:
+To github.com:KCastets/OpenclassroomsProject.git
+ * [new branch]      update-color -> update-color
+branch 'update-color' set up to track 'origin/update-color'.
+
+
+~~~
