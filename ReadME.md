@@ -8,6 +8,7 @@ Dans ce ReadMe, il y aura les commandes suivies pas à pas pour :
 - Suivre le cycle de vie du développement du projet fictif.
     * Les bases
     * Les branches   
+- Récupérer un projet existant
 
 ## Initialisation de l'environnement de travail
 
@@ -182,7 +183,7 @@ $ git commit -m "Realisaion de la cagnotte"
 ~~~
 
 Notre branche cagnotte contient donc un commit différent du dernier commit réalisé sur la branche main.
-Nous allons devoir les mettre en commun.
+Nous allons devoir l'envoyer sur le repo GitHub : 
 
 ~~~ bash 
 $ git push -u origin cagnotte
