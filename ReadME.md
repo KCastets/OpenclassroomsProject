@@ -1,6 +1,6 @@
 # Projet de prise en main de Git
 
-Il s'agit d'un projet fictif de site internet pour prendre en main Git et GitHub.
+Il s'agit d'un projet fictif de site internet pour prendre en main Git et GitHub réalisé en suivant le cours : https://openclassrooms.com/fr/courses/7162856-gerez-du-code-avec-git-et-github
 Dans ce ReadMe, il y aura les commandes suivies pas à pas pour : 
 - Initialiser l'envirronement de travail Git en local
 - Initialiser le dépot Git
@@ -302,4 +302,5 @@ Un revert, c'est un commit qui surcharge le précedent commit pour revenir à l'
 ~~~ bash
 $ git revert HEAD^
 $ git reset --hard|mixed|soft id_8_first_caracters
+
 ~~~
