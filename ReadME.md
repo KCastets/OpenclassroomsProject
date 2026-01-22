@@ -200,3 +200,96 @@ To github.com:KCastets/OpenclassroomsProject.git
  * [new branch]      cagnotte -> cagnotte
 branch 'cagnotte' set up to track 'origin/cagnotte'.
 ~~~
+
+## Correction d'erreurs
+
+* Supprimer une branche : 
+~~~ bash
+$ git branch brancheTest
+$ git branch
+  brancheTest
+* master
+
+$ git branch -d brancheTest
+Deleted branch brancheTest (was ef8c30d).
+
+$ git branch
+* master
+~~~
+
+* Modification de fichier sur une mauvaise branche
+~~~ bash
+$ git branch
+* main
+
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   fichier.txt
+
+$ git stash
+Saved working directory and index state WIP on master: ef8c30d FirstFile
+
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+$ git branch branche1
+
+$ git checkout branche1
+Switched to branch 'branche1'
+
+$ git stash list
+stash@{0}: WIP on master: ef8c30d FirstFile
+
+$ git stash apply stash@{0}
+On branch branche1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   fichier.txt
+
+$ git commit -m "Commit after stash"
+[branche1 5784765] Commit after stash
+ 1 file changed, 1 insertion(+)
+ create mode 100644 fichier.txt
+~~~
+
+* Erreur : Modification et Commit sur la mauvaise branche
+
+Avec 'git log' on peut identifier les derniers commits.
+ ~~~ bash
+$ git log
+commit b0249c88c2f9cf5e3a1686c416c1fd02eebf6027 (HEAD -> master)
+Author: KCastets <killiancastets@gmail.com>
+Date:   Thu Jan 22 15:01:22 2026 +0100
+
+    j'ai tout supprimée
+
+commit 1fd8972981e433a57cadfbff6a3b33c7bf0bfba9 (branche1)
+Author: KCastets <killiancastets@gmail.com>
+Date:   Thu Jan 22 14:58:12 2026 +0100
+
+    Ceci est un commit rempli de trop d'erreurs...
+
+$ git reset --hard HEAD^
+~~~
+Ici, on a supprimé le commit.
+Il faut maintenant aller se mettre sur la branche correcte et l'appliquer de nouveau
+
+~~~ bash
+$ git reset --hard id_8_first_caracters
+~~~
+
+* Modifier un message de commit
+
+~~~ bash
+$ git commit --amend -m "Nouveau message
+~~~
+
+* Oublie de fichier à mettre dans un commit : 
+
+~~~ bash
+$ git add fichierOublie.txt
+$ git commit --amend --no-edit
+~~~
