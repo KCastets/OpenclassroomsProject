@@ -202,99 +202,95 @@ To github.com:KCastets/OpenclassroomsProject.git
 branch 'cagnotte' set up to track 'origin/cagnotte'.
 ~~~
 
-Puis mettre en commun les deux branches.
-Il faut se placer dans la branche qui va recevoir les modifications.
+## Correction d'erreurs
 
+* Supprimer une branche : 
 ~~~ bash
-$ git checkout main
-Switched to branch 'main'
-Your branch is up to date with 'origin/main'.
+$ git branch brancheTest
+$ git branch
+  brancheTest
+* master
+
+$ git branch -d brancheTest
+Deleted branch brancheTest (was ef8c30d).
 
 $ git branch
-  cagnotte
+* master
+~~~
+
+* Modification de fichier sur une mauvaise branche
+~~~ bash
+$ git branch
 * main
 
-$ git merge cagnotte
-Updating f162c27..c8c769d
-Fast-forward
- ReadME.md    | 61 ++++++++++++++++++++++++++++++++++++++++
- cagnotte.txt |  0
- 2 files changed, 61 insertions(+)
- create mode 100644 cagnotte.txt
-~~~
-
-## Récupérer un projet existant
-
-Pour récupérer un projet existant il faut réaliser un clone.
-Pour cela, il faut se positionner dans le terminal à la racine contenant nos projets.
-
-~~~ bash
-~$ cd Git
-~/Git$ git clone https://github.com/OpenClassrooms-Student-Center/7162856-G-rez-Git-et-GitHub.git
-
-Cloning into '7162856-G-rez-Git-et-GitHub'...
-remote: Enumerating objects: 25, done.
-remote: Counting objects: 100% (16/16), done.
-remote: Compressing objects: 100% (13/13), done.
-remote: Total 25 (delta 7), reused 3 (delta 3), pack-reused 9 (from 1)
-Receiving objects: 100% (25/25), done.
-Resolving deltas: 100% (8/8), done.
-
-~/Git$ cd  7162856-G-rez-Git-et-GitHub/
-~/Git/7162856-G-rez-Git-et-GitHub$ ls
-README.md  index.html  style.css
-~~~
-
-Dans le cas où on possède déjà, en local, un projet et que celui-ci a subit des modifications : 
-
-~~~ bash
-~/Git/7162856-G-rez-Git-et-GitHub$ git pull origin main
-From https://github.com/OpenClassrooms-Student-Center/7162856-G-rez-Git-et-GitHub
- * branch            main       -> FETCH_HEAD
-Already up to date.
-~~~
-
-## Création d'une Pull Request
-
-Lorsque l'on participe à des projets avec plusieurs développeur, il devient nécessaire de réaliser des merge de code plus coordonnées. Pour cela, lorsqu'on termine de développer notre feature, il convient de faire un pull request : Une demande de merge en 2 étapes, permettant de s'assurer que l'on écrase pas le code du voisin.
-
-~~~ bash
-$ git branch update-color
-$ git checkout update-color
-M       ReadME.md
-M       index.html
-M       styles.css
-Switched to branch 'update-color'
-
-$ git add .
 $ git status
-On branch update-color
+On branch master
 Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
-        modified:   ReadME.md
-        modified:   index.html
-        modified:   styles.css
+        new file:   fichier.txt
 
-$ git commit -m "A
-jout du titre h2 et son css"
-[update-color 9c21caa] Ajout du titre h2 et son css
- 3 files changed, 65 insertions(+), 2 deletions(-)
+$ git stash
+Saved working directory and index state WIP on master: ef8c30d FirstFile
 
-$ git push -u origin update-color
-Enumerating objects: 9, done.
-Counting objects: 100% (9/9), done.
-Delta compression using up to 12 threads
-Compressing objects: 100% (5/5), done.
-Writing objects: 100% (5/5), 1.47 KiB | 302.00 KiB/s, done.
-Total 5 (delta 2), reused 0 (delta 0), pack-reused 0
-remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
-remote:
-remote: Create a pull request for 'update-color' on GitHub by visiting:
-remote:      https://github.com/KCastets/OpenclassroomsProject/pull/new/update-color
-remote:
-To github.com:KCastets/OpenclassroomsProject.git
- * [new branch]      update-color -> update-color
-branch 'update-color' set up to track 'origin/update-color'.
+$ git status
+On branch master
+nothing to commit, working tree clean
 
+$ git branch branche1
 
+$ git checkout branche1
+Switched to branch 'branche1'
+
+$ git stash list
+stash@{0}: WIP on master: ef8c30d FirstFile
+
+$ git stash apply stash@{0}
+On branch branche1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   fichier.txt
+
+$ git commit -m "Commit after stash"
+[branche1 5784765] Commit after stash
+ 1 file changed, 1 insertion(+)
+ create mode 100644 fichier.txt
+~~~
+
+* Erreur : Modification et Commit sur la mauvaise branche
+
+Avec 'git log' on peut identifier les derniers commits.
+ ~~~ bash
+$ git log
+commit b0249c88c2f9cf5e3a1686c416c1fd02eebf6027 (HEAD -> master)
+Author: KCastets <killiancastets@gmail.com>
+Date:   Thu Jan 22 15:01:22 2026 +0100
+
+    j'ai tout supprimée
+
+commit 1fd8972981e433a57cadfbff6a3b33c7bf0bfba9 (branche1)
+Author: KCastets <killiancastets@gmail.com>
+Date:   Thu Jan 22 14:58:12 2026 +0100
+
+    Ceci est un commit rempli de trop d'erreurs...
+
+$ git reset --hard HEAD^
+~~~
+Ici, on a supprimé le commit.
+Il faut maintenant aller se mettre sur la branche correcte et l'appliquer de nouveau
+
+~~~ bash
+$ git reset --hard id_8_first_caracters
+~~~
+
+* Modifier un message de commit
+
+~~~ bash
+$ git commit --amend -m "Nouveau message
+~~~
+
+* Oublie de fichier à mettre dans un commit : 
+
+~~~ bash
+$ git add fichierOublie.txt
+$ git commit --amend --no-edit
 ~~~
