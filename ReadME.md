@@ -4,6 +4,7 @@ Il s'agit d'un projet fictif de site internet pour prendre en main Git et GitHub
 Dans ce ReadMe, il y aura les commandes suivies pas à pas pour : 
 - Initialiser l'envirronement de travail Git en local
 - Initialiser le dépot Git
+- Création de clés SSH
 - Suivre le cycle de vie du développement du projet fictif.
 
 ## Initialisation de l'environnement de travail
@@ -55,6 +56,20 @@ drwxr-xr-x 3 kcastets kcastets 4096 Jan 22 10:15 .
 drwxr-xr-x 3 kcastets kcastets 4096 Jan 22 09:41 ..
 drwxr-xr-x 7 kcastets kcastets 4096 Jan 22 10:14 .git
 ~~~
+
+## Création de clés SSH
+
+Pour générer des clés SSH : 
+
+~~~bash
+$ ssh-keygen -t ed25519 -C "killiancastets@gmail.com" # Générer de nouvelles clés
+$ eval "$(ssh-agent -s)" # Vérifier que l'agent SSH fonctionne
+$ ssh-add ~/.ssh/id_ed25519 # Ajouter les clés à l'agent SSH
+$ cat ~/.ssh/id_ed25519.pub # Visualiser la clé Publique.
+~~~
+
+Il faut ensuite utiliser les clés SSH dans ce tuto de GitHub pour ajouter la clé publique à GitHub:
+https://docs.github.com/fr/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux
 
 ## Cycle de développement
 
@@ -114,4 +129,13 @@ $ git commit -m "Ajout du fichier index.html"
 [master (root-commit) 7028848] Ajout du fichier index.html
  1 file changed, 0 insertions(+), 0 deletions(-)
  create mode 100644 index.html
+~~~
+
+Maintenant, nous voulons relier notre repository GitHub au dépot Git.
+Pour cela, il faut récupérer le lien SSH du repo sur GitHub, par exemple: git@github.com:KCastets/OpenclassroomsProject.git
+
+~~~ bash
+$ git remote add origin git@github.com:KCastets/OpenclassroomsProject.git # Lier le repo GitHub au dépot Git
+$ git branch -M main # Choisir la branche sur laquelle réaliser le commit
+$ git push -u origin main # Envoyer nos modifications réalisées sur le dépot Git vers le repo GitHub
 ~~~
