@@ -294,3 +294,12 @@ $ git commit --amend -m "Nouveau message
 $ git add fichierOublie.txt
 $ git commit --amend --no-edit
 ~~~
+
+Lorsqu'un commit a été publié sur le dépot distant, il faut faire, soit un revert, soit un reset.
+Un reset, c'est revenir à un commit en oubliant ce qu'il s'est passé depuis (hard), sans oublier les développements réalisés depuis (mixed) ou en créant un branche à partir d'un commit antérieur (soft)  (modification de l'historique)
+Un revert, c'est un commit qui surcharge le précedent commit pour revenir à l'état précédent. L'erreur fera partie de l'historique.
+
+~~~ bash
+$ git revert HEAD^
+$ git reset --hard|mixed|soft id_8_first_caracters
+~~~
